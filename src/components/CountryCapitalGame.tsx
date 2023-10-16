@@ -17,10 +17,11 @@ export default function CountryCapitalGame({ data }: CountryCapitalGameProps) {
   };
 
   const shuffledEntries = shuffleArray(entries);
-
+  
   const cardMap = shuffledEntries.map((entry) => {
     return <Card key={entry} name={entry} />;
   });
 
-  return <div>{cardMap}</div>;
+
+  return <div className="container">{cardMap}</div>;
 }

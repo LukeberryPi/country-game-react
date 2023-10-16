@@ -3,5 +3,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  --selected-blue: #009BFF;
+  --incorrect-red: #FF0000;
 }
 
+.container {
+  display: flex;
+  gap: 16px;
+}
+
+button {
+  all: unset;
+}
+
+.card {
+  padding: 6px 12px;
+  background: white;
+  outline: black 1px solid;
+  font-size: 16px;
+}
+
+.selected {
+  background: var(--selected-blue);
+}
