@@ -4,7 +4,7 @@ These are the instructions:
 
 In the game, the player needs to match a country to its capital by clicking on appropriate buttons
 
-1. Your component should receive a data property in the following format : an object with the corre answer, where the keys are the names of the countries and the value of each key is the capital of country: <CountryCapitalGame data={{ Germany: "Berlin", Azerbaijan: "Baku" }} />
+1. Your component should receive a data property in the following format : an object with the correct answer, where the keys are the names of the countries and the value of each key is the capital of country: <CountryCapitalGame data={{ Germany: "Berlin", Azerbaijan: "Baku" }} />
 
 2. A button should be displayed for each country and each capital. So, the example above would have 4 buttons: Germany, Berlin, Azerbaijan and Baku.
 

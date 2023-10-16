@@ -1,27 +1,60 @@
-import Card from "./Card";
+import { useState } from "react";
 
-interface CountryCapitalGameProps {
-  data: Record<string, string>;
+declare global {
+  interface Array<T> {
+    shuffle(): T[];
+  }
 }
 
+Array.prototype.shuffle = function () {
+  for (let i = this.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [this[i], this[j]] = [this[j], this[i]];
+  }
+  return this;
+};
+
+type CountryCapitalGameProps = {
+  data: Record<string, string>;
+};
+
+type ButtonState = "SELECTED" | "WRONG" | "DEFAULT";
+
+type Option = {
+  value: string;
+  state: ButtonState;
+};
+
 export default function CountryCapitalGame({ data }: CountryCapitalGameProps) {
-  const entries = [...Object.keys(data), ...Object.values(data)];
+  const [options, setOptions] = useState<Option[]>(
+    [...Object.keys(data), ...Object.values(data)].shuffle().map((value) => {
+      return {
+        value,
+        state: "DEFAULT",
+      };
+    })
+  );
 
-  const shuffleArray = (arr: string[]) => {
-    const copy = [...arr];
-    for (let i = copy.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [copy[i], copy[j]] = [copy[j], copy[i]];
-    }
-    return copy;
-  };
-
-  const shuffledEntries = shuffleArray(entries);
-  
-  const cardMap = shuffledEntries.map((entry) => {
-    return <Card key={entry} name={entry} />;
-  });
-
+  const cardMap = options.map((option) => (
+    <button
+      className={option.state === "SELECTED" ? "selected" : ""}
+      key={option.value}
+      onClick={() =>
+        setOptions(
+          options.map((opt) => {
+            return opt === option
+              ? {
+                  ...opt,
+                  state: "SELECTED",
+                }
+              : opt;
+          })
+        )
+      }
+    >
+      {option.value}
+    </button>
+  ));
 
   return <div className="container">{cardMap}</div>;
 }

@@ -7,20 +7,19 @@
   --incorrect-red: #FF0000;
 }
 
-.container {
-  display: flex;
-  gap: 16px;
-}
-
 button {
+  /* all: unset should be avoided, i'm just being lazy about styles */
   all: unset;
-}
-
-.card {
+  cursor: pointer;
   padding: 6px 12px;
   background: white;
   outline: black 1px solid;
-  font-size: 16px;
+  font-size: 24px;
+}
+
+.container {
+  display: flex;
+  gap: 16px;
 }
 
 .selected {
