@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 24px;
   --selected-blue: #009BFF;
   --incorrect-red: #FF0000;
 }
@@ -14,7 +15,6 @@ button {
   padding: 6px 12px;
   background: white;
   outline: black 1px solid;
-  font-size: 24px;
 }
 
 .container {
@@ -24,4 +24,9 @@ button {
 
 .selected {
   background: var(--selected-blue);
+  color: white;
+}
+
+.wrong {
+  background: var(--incorrect-red);
 }
