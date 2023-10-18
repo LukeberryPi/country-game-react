@@ -28,5 +28,6 @@ button {
 }
 
 .wrong {
+  color: white;
   background: var(--incorrect-red);
 }

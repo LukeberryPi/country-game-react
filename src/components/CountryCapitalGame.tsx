@@ -58,7 +58,7 @@ export default function CountryCapitalGame({ data }: CountryCapitalGameProps) {
                     ...opt,
                     state: "SELECTED",
                   }
-                : opt;
+                : { ...opt, state: "DEFAULT" };
             })
           );
         } else {
@@ -66,7 +66,7 @@ export default function CountryCapitalGame({ data }: CountryCapitalGameProps) {
           if (
             option.value === data[selectedPlace.value] ||
             selectedPlace.value === data[option.value]
-            ) {
+          ) {
             // remove both from the list if they match country <> capital
             setOptions(
               options.filter(
@@ -80,7 +80,8 @@ export default function CountryCapitalGame({ data }: CountryCapitalGameProps) {
             // set both backgrounds to red if they don't match
             setOptions(
               options.map((opt) => {
-                return opt === option
+                return opt.value === option.value ||
+                  opt.value === selectedPlace.value
                   ? {
                       ...opt,
                       state: "WRONG",
@@ -88,6 +89,7 @@ export default function CountryCapitalGame({ data }: CountryCapitalGameProps) {
                   : opt;
               })
             );
+            setSelectedPlace(undefined);
           }
         }
       }}
@@ -96,7 +98,9 @@ export default function CountryCapitalGame({ data }: CountryCapitalGameProps) {
     </button>
   ));
 
-  if (options.length === 0) {
+  const gameOver = options.length === 0;
+
+  if (gameOver) {
     return <div>Congratulations!</div>;
   }
 
