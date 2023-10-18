@@ -1,20 +1,5 @@
 import { useState } from "react";
 
-declare global {
-  interface Array<T> {
-    shuffle(): T[];
-  }
-}
-
-// fisher-yates/knuth shuffle
-Array.prototype.shuffle = function () {
-  for (let i = this.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [this[i], this[j]] = [this[j], this[i]];
-  }
-  return this;
-};
-
 type CountryCapitalGameProps = {
   data: Record<string, string>;
 };
@@ -27,14 +12,16 @@ type Option = {
 };
 
 export default function CountryCapitalGame({ data }: CountryCapitalGameProps) {
-  const [options, setOptions] = useState<Option[]>(
-    [...Object.keys(data), ...Object.values(data)].shuffle().map((value) => {
+  const initialState: Option[] = [...Object.keys(data), ...Object.values(data)]
+    .shuffle()
+    .map((value) => {
       return {
         value,
         state: "DEFAULT",
       };
-    })
-  );
+    });
+
+  const [options, setOptions] = useState<Option[]>(initialState);
   const [selectedPlace, setSelectedPlace] = useState<Option>();
 
   const cardMap = options.map((option) => (
@@ -58,7 +45,10 @@ export default function CountryCapitalGame({ data }: CountryCapitalGameProps) {
                     ...opt,
                     state: "SELECTED",
                   }
-                : { ...opt, state: "DEFAULT" };
+                : {
+                    ...opt,
+                    state: "DEFAULT",
+                  };
             })
           );
         } else {
@@ -100,9 +90,18 @@ export default function CountryCapitalGame({ data }: CountryCapitalGameProps) {
 
   const gameOver = options.length === 0;
 
+  const restartGame = () => {
+    setOptions(initialState);
+  };
+
   if (gameOver) {
-    return <div>Congratulations!</div>;
+    return (
+      <div className="end">
+        <p>Congratulations!</p>
+        <button onClick={restartGame}>Restart game</button>
+      </div>
+    );
   }
 
-  return <div className="container">{cardMap}</div>;
+  return <main className="container">{cardMap}</main>;
 }

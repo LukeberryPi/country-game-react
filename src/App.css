@@ -31,3 +31,9 @@ button {
   color: white;
   background: var(--incorrect-red);
 }
+
+.end {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
